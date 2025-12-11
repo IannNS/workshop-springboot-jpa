@@ -9,6 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +29,9 @@ public class Product implements Serializable{
 	
 	// Guaranty that categories is notNull
 	// HashSet used because Set is an Interface that can't be instantiated, so it needs to be relative
+	// ManyToMany relation with relational table creation to product and category
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_fk"), inverseJoinColumns = @JoinColumn(name = "category_fk"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product () {
